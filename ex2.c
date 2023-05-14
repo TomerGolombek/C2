@@ -265,9 +265,8 @@ void reg_student(slist *students, clist *courses, int id, int number){
 
 void unreg_student(slist *students, int id, int number) {
     slist *sl = students , *sl2;
-    clist *cl, *cl2;
+    clist *cl;
 
-    // Find the student in the list
     while (sl != NULL && sl->info->id != id) {
         sl = sl->next;
     }
@@ -276,7 +275,6 @@ void unreg_student(slist *students, int id, int number) {
         return;
     }
 
-    // Find the course in the student's list of courses
     cl = sl->info->courses;
     while (cl != NULL && cl->info->number != number) {
         cl = cl->next;
@@ -286,7 +284,6 @@ void unreg_student(slist *students, int id, int number) {
         return;
     }
 
-    // Remove the course from the student's list of courses
     if (cl == sl->info->courses) {
         sl->info->courses = cl->next;
     } else {
@@ -299,7 +296,6 @@ void unreg_student(slist *students, int id, int number) {
     sl2 = cl->info->students;
     slist *prev2;
     if (sl2->info->id == id){
-        prev2 = sl2;
         cl->info->students = cl->info->students->next;
     } else {
         while(sl2->info->id != id){
